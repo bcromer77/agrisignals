@@ -9,3 +9,13 @@ Hood river/
 
 # Ignore heavy local assets
 Hood river/
+.env
+*.log
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
+data/
+venv/
+.venv/
+
