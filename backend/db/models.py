@@ -35,3 +35,31 @@ class Signal(Base):
     value = Column(Float)
     triggered = Column(Boolean, default=False)
     notes = Column(Text)
+
+class IndexValue(Base):
+    __tablename__ = "indices"
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, index=True)
+    region = Column(String, index=True)          # TX-OK-NM, KS, NE, IA-MN, CO, OTHER, ALL
+    name = Column(String, index=True)            # ASI, QPI, WPI, CSM
+    value = Column(Float)
+    components = Column(Text)                    # JSON blob
+
+class Basis(Base):
+    __tablename__ = "basis"
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, index=True)
+    region = Column(String, index=True)
+    cash_cwt = Column(Float)
+    futures_cwt = Column(Float)
+    basis = Column(Float)
+
+class RiskEvent(Base):
+    __tablename__ = "risk_events"
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, index=True)
+    rtype = Column(String, index=True)           # POLICY or BIO
+    severity = Column(Integer)
+    region = Column(String, index=True)
+    source = Column(String)
+    text = Column(Text)
