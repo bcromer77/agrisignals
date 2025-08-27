@@ -1,11 +1,30 @@
-fastapi
-uvicorn[standard]
-streamlit
-firecrawl
-pydantic
-tenacity
-requests
-twilio
-tenacity
-firecrawl-py
-openai
+# ----------------
+# Backend & API
+fastapi==0.111.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+requests==2.32.3
+tenacity==9.0.0
+twilio==9.2.3
+
+# ----------------
+# LLM / Scraping
+openai==1.44.0
+firecrawl-py  # (if you tested locally as firecrawl-py)
+# firecrawl   # (replace with this if package name is different)
+
+# ----------------
+# Dashboard (keep if Streamlit ops dashboard)
+streamlit==1.38.0
+plotly==5.23.0
+pandas==2.2.2
+
+# ----------------
+# Database & Env
+pymongo[srv]==4.8.0
+dnspython==2.6.1
+python-dotenv==1.0.1
+
+# ----------------
+# Optional: hot reload (local dev only)
+watchdog==4.0.1
