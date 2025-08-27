@@ -1,0 +1,20 @@
+from backend.agents.base import BaseAgent
+from backend.services.county_scanner.storage import save_vectors
+
+class TestAgent(BaseAgent):
+    def __init__(self):
+        super().__init__(name="TestAgent")
+
+    def queries(self):
+        # define what this agent should search for
+        return ["Colorado cattle auction drought"]
+
+if __name__ == "__main__":
+    agent = TestAgent()
+    docs = agent.run()
+    if not docs:
+        print("⚠️ No docs found")
+    else:
+        print(f"📥 {agent.name} ingested {len(docs)} docs")
+        save_vectors(docs, backend="mongo")
+

@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+streamlit
+firecrawl
+pydantic
+tenacity
+requests
+twilio
+tenacity
+firecrawl-py
+openai

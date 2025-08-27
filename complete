@@ -1,0 +1,248 @@
+# Create the complete agrisignals_ingestion.py file
+ingestion_code = '''import os
+import sys
+import json
+import requests
+import pandas as pd
+from io import BytesIO
+from datetime import datetime
+from pathlib import Path
+from pymongo import MongoClient
+from dotenv import load_dotenv
+from openai import OpenAI
+
+# --- Load env vars ---
+load_dotenv()
+MONGO_URI = os.getenv("MONGO_URI")
+MONGO_DB = os.getenv("MONGO_DB", "agrisignals_db")
+COLLECTION = "sources_collection"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not MONGO_URI or not OPENAI_API_KEY:
+    sys.exit("❌ Missing MONGO_URI or OPENAI_API_KEY in environment. Check your .env file.")
+
+# --- Mongo + OpenAI Clients ---
+client = MongoClient(MONGO_URI)
+db = client[MONGO_DB]
+collection = db[COLLECTION]
+openai_client = OpenAI(api_key=OPENAI_API_KEY)
+
+print(f"✅ Connected to MongoDB: {MONGO_DB}")
+print(f"✅ Connected to OpenAI API")
+
+# --- Helper: Embedding ---
+def generate_embedding(text: str):
+    """Generate OpenAI embedding for text content"""
+    if not text or not text.strip():
+        return []
+    try:
+        resp = openai_client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text[:8000]  # truncate for safety
+        )
+        return resp.data[0].embedding
+    except Exception as e:
+        print(f"⚠️ Embedding generation failed: {e}")
+        return []
+
+# --- Helper: Ingest Excel/CSV structured sources (DOL H-2 visa data) ---
+def ingest_structured_file(url, source_meta):
+    """Parse Excel/CSV files like DOL H-2A/H-2B disclosure data"""
+    print(f"📥 Processing structured file: {url}")
+    try:
+        resp = requests.get(url, timeout=60)
+        resp.raise_for_status()
+        
+        # Auto-detect format
+        if url.endswith(".csv"):
+            df = pd.read_csv(BytesIO(resp.content))
+        else:
+            df = pd.read_excel(BytesIO(resp.content))
+            
+        print(f"📊 Loaded {len(df)} rows from structured file")
+        
+    except Exception as e:
+        print(f"❌ Failed to fetch or parse structured file {url}: {e}")
+        return []
+
+    records = []
+    for idx, row in df.iterrows():
+        try:
+            # Handle different column name variations
+            state = str(row.get("Worksite State", row.get("State", ""))).strip()
+            county = str(row.get("Worksite County", row.get("County", ""))).strip()
+            employer = str(row.get("Employer Name", row.get("Employer", ""))).strip()
+            
+            # Handle numeric fields safely
+            requested = pd.to_numeric(row.get("Total Worker Positions Requested", 
+                                            row.get("Workers Requested", 0)), errors='coerce')
+            certified = pd.to_numeric(row.get("Total Worker Positions Certified", 
+                                            row.get("Workers Certified", 0)), errors='coerce')
+            
+            if pd.isna(requested):
+                requested = 0
+            if pd.isna(certified):
+                certified = 0
+                
+            rate = certified / requested if requested > 0 else 0.0
+
+            # Build summary string for embedding
+            content = (
+                f"{source_meta['commodity']} signal from {source_meta['state']}: "
+                f"{employer} requested {int(requested)} workers, {int(certified)} certified "
+                f"({rate:.0%}) in {county} County, {state}. "
+                f"Source: {source_meta['source_id']}"
+            )
+
+            rec = {
+                **source_meta,
+                "employer": employer,
+                "state": state if state else source_meta.get('state', 'US'),
+                "county": county,
+                "workers_requested": int(requested),
+                "workers_certified": int(certified),
+                "certification_rate": round(rate, 3),
+                "decision_date": str(row.get("Decision Date", "")),
+                "scraped_content": content,
+                "embedding": generate_embedding(content),
+                "ingest_date": datetime.utcnow(),
+                "data_type": "structured"
+            }
+            records.append(rec)
+            
+        except Exception as e:
+            print(f"⚠️ Error parsing row {idx}: {e}")
+            continue
+            
+    print(f"✅ Processed {len(records)} valid records from structured file")
+    return records
+
+# --- Helper: Ingest Web Sources (text scraping) ---
+def ingest_web_source(url, source_meta):
+    """Scrape web pages for text content"""
+    print(f"🌍 Fetching web content: {url}")
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+        }
+        resp = requests.get(url, timeout=30, headers=headers)
+        resp.raise_for_status()
+        
+        # Basic text extraction (could be enhanced with BeautifulSoup)
+        text = resp.text
+        # Remove HTML tags roughly
+        import re
+        text = re.sub(r'<[^>]+>', ' ', text)
+        text = re.sub(r'\\s+', ' ', text).strip()
+        
+    except Exception as e:
+        print(f"❌ Failed to fetch {url}: {e}")
+        return None
+
+    # Truncate for embedding
+    content = (text[:2000] + "...") if len(text) > 2000 else text
+    
+    rec = {
+        **source_meta,
+        "scraped_content": content,
+        "embedding": generate_embedding(content),
+        "ingest_date": datetime.utcnow(),
+        "data_type": "web_scraped"
+    }
+    return rec
+
+# --- Main Ingestion Loop ---
+def main():
+    """Main ingestion pipeline - auto-detects all *_sources.json files"""
+    
+    # Auto-discover all source pack files
+    source_files = list(Path(".").glob("*_sources.json"))
+    if not source_files:
+        print("❌ No *_sources.json files found in repo root.")
+        print("Expected files like: texas_alpha_sources.json, labor_alpha_sources.json, etc.")
+        sys.exit(1)
+
+    print(f"📑 Found {len(source_files)} source packs:")
+    for sf in source_files:
+        print(f"   - {sf.name}")
+
+    total_sources = 0
+    total_inserted = 0
+
+    for sf in source_files:
+        print(f"\\n🔄 Processing {sf.name}...")
+        
+        try:
+            with open(sf, 'r') as f:
+                sources = json.load(f)
+        except Exception as e:
+            print(f"❌ Failed to load {sf}: {e}")
+            continue
+
+        print(f"✅ Loaded {len(sources)} sources from {sf.name}")
+        total_sources += len(sources)
+
+        for src in sources:
+            url = src.get("url")
+            source_id = src.get("source_id", "unknown")
+            
+            if not url:
+                print(f"⚠️ Skipping {source_id}: no URL provided")
+                continue
+
+            print(f"\\n📍 Processing: {source_id}")
+
+            # Check if already exists (avoid duplicates)
+            existing = collection.find_one({"source_id": source_id, "url": url})
+            if existing:
+                print(f"⏭️ Skipping {source_id}: already exists in database")
+                continue
+
+            # Determine ingestion method based on URL
+            if url.endswith((".csv", ".xlsx", ".xls")):
+                # Structured file ingestion
+                records = ingest_structured_file(url, src)
+                if records:
+                    try:
+                        collection.insert_many(records)
+                        total_inserted += len(records)
+                        print(f"✅ Inserted {len(records)} structured records for {source_id}")
+                    except Exception as e:
+                        print(f"❌ Failed to insert records for {source_id}: {e}")
+            else:
+                # Web source ingestion
+                rec = ingest_web_source(url, src)
+                if rec:
+                    try:
+                        collection.insert_one(rec)
+                        total_inserted += 1
+                        print(f"✅ Inserted web record for {source_id}")
+                    except Exception as e:
+                        print(f"❌ Failed to insert record for {source_id}: {e}")
+
+    print(f"\\n🎉 Ingestion complete!")
+    print(f"📊 Total sources processed: {total_sources}")
+    print(f"📊 Total records inserted: {total_inserted}")
+    
+    # Summary by commodity
+    pipeline = [
+        {"$group": {"_id": "$commodity", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}}
+    ]
+    
+    commodity_counts = list(collection.aggregate(pipeline))
+    if commodity_counts:
+        print(f"\\n📈 Records by commodity:")
+        for item in commodity_counts:
+            print(f"   - {item['_id']}: {item['count']} records")
+
+if __name__ == "__main__":
+    main()
+'''
+
+# Save the file
+with open('agrisignals_ingestion.py', 'w') as f:
+    f.write(ingestion_code)
+
+print("✅ Created complete agrisignals_ingestion.py")
+print("File size:", len(ingestion_code), "characters")

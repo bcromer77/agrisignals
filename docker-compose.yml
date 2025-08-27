@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./agrisignals.db
+    volumes:
+      - ./:/app
+  dashboard:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: bash -lc "pip install -r requirements.txt && streamlit run dashboard/app.py --server.port 8501 --server.address 0.0.0.0"
+    ports:
+      - "8501:8501"
