@@ -1,0 +1,1542 @@
+{
+  "id" : "4yw9-a5y6",
+  "name" : "Current Surface Water Conditions in Colorado",
+  "assetType" : "dataset",
+  "attribution" : "DNR - Division of Water Resources",
+  "attributionLink" : "https://water.state.co.us/Home/Pages/default.aspx",
+  "averageRating" : 0,
+  "category" : "Water",
+  "createdAt" : 1383168282,
+  "description" : "Division of Water Resources (DWR) Current Surface Water Conditions.  This is a list of all remote monitored stream, diversion, and reservoir gages within the state of Colorado.",
+  "diciBackend" : false,
+  "displayType" : "table",
+  "downloadCount" : 534001,
+  "hideFromCatalog" : false,
+  "hideFromDataJson" : false,
+  "indexUpdatedAt" : 1556665340,
+  "licenseId" : "PUBLIC_DOMAIN",
+  "locked" : false,
+  "newBackend" : true,
+  "numberOfComments" : 0,
+  "oid" : 27682647,
+  "provenance" : "official",
+  "publicationAppendEnabled" : false,
+  "publicationDate" : 1515434216,
+  "publicationGroup" : 1304945,
+  "publicationStage" : "published",
+  "rowIdentifierColumnId" : 339061076,
+  "rowsUpdatedAt" : 1756478983,
+  "rowsUpdatedBy" : "g32q-fx7y",
+  "tableId" : 14775217,
+  "totalTimesRated" : 0,
+  "viewCount" : 16399,
+  "viewLastModified" : 1752863549,
+  "viewType" : "tabular",
+  "approvals" : [ {
+    "reviewedAt" : 1715895315,
+    "reviewedAutomatically" : false,
+    "state" : "approved",
+    "submissionId" : 6315415,
+    "submissionObject" : "public_audience_request",
+    "submissionOutcome" : "change_audience",
+    "submittedAt" : 1715895304,
+    "targetAudience" : "public",
+    "workflowId" : 1726,
+    "reviewer" : {
+      "id" : "fqh8-89ks",
+      "displayName" : "Pam (Tyler Support)"
+    },
+    "submissionDetails" : {
+      "permissionType" : "read"
+    },
+    "submissionOutcomeApplication" : {
+      "endedAt" : 1715895315,
+      "failureCount" : 0,
+      "startedAt" : 1715895315,
+      "status" : "success"
+    },
+    "submitter" : {
+      "id" : "fqh8-89ks",
+      "displayName" : "Pam (Tyler Support)"
+    }
+  } ],
+  "clientContext" : {
+    "clientContextVariables" : [ ],
+    "inheritedVariables" : { }
+  },
+  "columns" : [ {
+    "id" : 339061059,
+    "name" : "DIV",
+    "dataTypeName" : "number",
+    "description" : "Division where the Station is located.",
+    "fieldName" : "div",
+    "position" : 1,
+    "renderTypeName" : "number",
+    "tableColumnId" : 15779902,
+    "width" : 50,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "average" : "2.751417004048583",
+      "largest" : "7",
+      "null" : "0",
+      "top" : [ {
+        "item" : "1",
+        "count" : "713"
+      }, {
+        "item" : "2",
+        "count" : "359"
+      }, {
+        "item" : "3",
+        "count" : "158"
+      }, {
+        "item" : "5",
+        "count" : "153"
+      }, {
+        "item" : "4",
+        "count" : "129"
+      }, {
+        "item" : "7",
+        "count" : "100"
+      }, {
+        "item" : "6",
+        "count" : "68"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "1",
+      "count" : "1680",
+      "sum" : "3398",
+      "cardinality" : "7"
+    },
+    "format" : {
+      "precisionStyle" : "standard",
+      "noCommas" : "true",
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061060,
+    "name" : "WD",
+    "dataTypeName" : "number",
+    "description" : "Water District where the Station is located.",
+    "fieldName" : "wd",
+    "position" : 2,
+    "renderTypeName" : "number",
+    "tableColumnId" : 15779903,
+    "width" : 50,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "average" : "26.72145748987854",
+      "largest" : "80",
+      "null" : "0",
+      "top" : [ {
+        "item" : "7",
+        "count" : "115"
+      }, {
+        "item" : "2",
+        "count" : "102"
+      }, {
+        "item" : "6",
+        "count" : "99"
+      }, {
+        "item" : "67",
+        "count" : "67"
+      }, {
+        "item" : "20",
+        "count" : "65"
+      }, {
+        "item" : "8",
+        "count" : "64"
+      }, {
+        "item" : "10",
+        "count" : "60"
+      }, {
+        "item" : "4",
+        "count" : "55"
+      }, {
+        "item" : "17",
+        "count" : "53"
+      }, {
+        "item" : "5",
+        "count" : "52"
+      }, {
+        "item" : "11",
+        "count" : "52"
+      }, {
+        "item" : "40",
+        "count" : "48"
+      }, {
+        "item" : "3",
+        "count" : "44"
+      }, {
+        "item" : "9",
+        "count" : "39"
+      }, {
+        "item" : "1",
+        "count" : "39"
+      }, {
+        "item" : "51",
+        "count" : "38"
+      }, {
+        "item" : "23",
+        "count" : "36"
+      }, {
+        "item" : "64",
+        "count" : "35"
+      }, {
+        "item" : "58",
+        "count" : "34"
+      }, {
+        "item" : "12",
+        "count" : "33"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "1",
+      "count" : "1680",
+      "sum" : "33001",
+      "cardinality" : "72"
+    },
+    "format" : {
+      "precisionStyle" : "standard",
+      "noCommas" : "true",
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061061,
+    "name" : "County",
+    "dataTypeName" : "text",
+    "description" : "County where the Station is located.",
+    "fieldName" : "county",
+    "position" : 3,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779904,
+    "width" : 109,
+    "cachedContents" : {
+      "non_null" : "1637",
+      "largest" : "YUMA",
+      "null" : "43",
+      "top" : [ {
+        "item" : "BOULDER",
+        "count" : "128"
+      }, {
+        "item" : "WELD",
+        "count" : "126"
+      }, {
+        "item" : "JEFFERSON",
+        "count" : "124"
+      }, {
+        "item" : "LARIMER",
+        "count" : "77"
+      }, {
+        "item" : "EL PASO",
+        "count" : "54"
+      }, {
+        "item" : "LA PLATA",
+        "count" : "53"
+      }, {
+        "item" : "ADAMS",
+        "count" : "51"
+      }, {
+        "item" : "PARK",
+        "count" : "50"
+      }, {
+        "item" : "BENT",
+        "count" : "46"
+      }, {
+        "item" : "PUEBLO",
+        "count" : "46"
+      }, {
+        "item" : "GRAND",
+        "count" : "44"
+      }, {
+        "item" : "DELTA",
+        "count" : "44"
+      }, {
+        "item" : "CONEJOS",
+        "count" : "39"
+      }, {
+        "item" : "ROUTT",
+        "count" : "33"
+      }, {
+        "item" : "SAGUACHE",
+        "count" : "31"
+      }, {
+        "item" : "MONTROSE",
+        "count" : "31"
+      }, {
+        "item" : "CHAFFEE",
+        "count" : "30"
+      }, {
+        "item" : "RIO GRANDE",
+        "count" : "29"
+      }, {
+        "item" : "EAGLE",
+        "count" : "29"
+      }, {
+        "item" : "GUNNISON",
+        "count" : "28"
+      } ],
+      "not_null" : "1218",
+      "smallest" : "ADAMS",
+      "count" : "1680",
+      "cardinality" : "60"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061062,
+    "name" : "Station Name",
+    "dataTypeName" : "text",
+    "description" : "Station name.",
+    "fieldName" : "station_name",
+    "position" : 4,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779909,
+    "width" : 340,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "ZWECK AND TURNER DITCH",
+      "null" : "0",
+      "top" : [ {
+        "item" : "HOOSIER PASS TUNNEL AT INLET (NORTH PORTAL)",
+        "count" : "4"
+      }, {
+        "item" : "TAYLOR PARK RESERVOIR AT TAYLOR PARK, CO.",
+        "count" : "2"
+      }, {
+        "item" : "CHEESMAN RESERVOIR",
+        "count" : "2"
+      }, {
+        "item" : "HENSON CREEK AT LAKE CITY, CO",
+        "count" : "2"
+      }, {
+        "item" : "LEMON RESERVOIR NEAR DURANGO",
+        "count" : "2"
+      }, {
+        "item" : "HODGSON DITCH",
+        "count" : "2"
+      }, {
+        "item" : "ARKANSAS RIVER AT HOLLY, CO.",
+        "count" : "2"
+      }, {
+        "item" : "OHIO CREEK NEAR BALDWIN, CO.",
+        "count" : "2"
+      }, {
+        "item" : "RIO GRANDE BLW TAOS JUNCTION BRIDGE NEAR TAOS, NM",
+        "count" : "2"
+      }, {
+        "item" : "EAGLE R BLW WASTEWATER TREATMENT PLANT AT AVON, CO",
+        "count" : "2"
+      }, {
+        "item" : "ANIMAS RIVER AT TALL TIMBER RESORT ABOVE TACOMA,CO",
+        "count" : "2"
+      }, {
+        "item" : "MAIN RESERVOIR",
+        "count" : "2"
+      }, {
+        "item" : "AURORA HOMESTAKE PIPELINE TO SPINNEY RESERVOIR",
+        "count" : "2"
+      }, {
+        "item" : "HOMESTAKE RESERVOIR (OUTFLOW)",
+        "count" : "2"
+      }, {
+        "item" : "COLORADO RIVER AT RULISON, CO.",
+        "count" : "2"
+      }, {
+        "item" : "COSTILLA RESERVOIR NEAR COSTILLA, NM.",
+        "count" : "2"
+      }, {
+        "item" : "WILLIAMS FORK BELOW WILLIAMS FORK RESERVOIR, CO",
+        "count" : "2"
+      }, {
+        "item" : "ARF FARM 201 RECHARGE FACILITY POND 5WEST",
+        "count" : "1"
+      }, {
+        "item" : "BEAR CREEK NEAR COLORADO SPRINGS, CO",
+        "count" : "1"
+      }, {
+        "item" : "SOUTH PLATTE RIVER AT JULESBURG (CHANNEL #1)",
+        "count" : "1"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "1200538",
+      "count" : "1680",
+      "cardinality" : "1661"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061063,
+    "name" : "Data Source",
+    "dataTypeName" : "text",
+    "description" : "Data provider name.",
+    "fieldName" : "data_source",
+    "position" : 5,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779910,
+    "width" : 223,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "U.S. Geological Survey",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Co. Division of Water Resources",
+        "count" : "1039"
+      }, {
+        "item" : "U.S. Geological Survey",
+        "count" : "360"
+      }, {
+        "item" : "Cooperative Program of CDWR, NCWCD & LSPWCD",
+        "count" : "55"
+      }, {
+        "item" : "Cooperative SDR Program of CDWR & NCWCD",
+        "count" : "54"
+      }, {
+        "item" : "Northern Water",
+        "count" : "30"
+      }, {
+        "item" : "Bureau of Reclamation  (Station cooperator)",
+        "count" : "25"
+      }, {
+        "item" : "City of Aurora  (Station cooperator)",
+        "count" : "25"
+      }, {
+        "item" : "Cooperative Program of CDWR, NCWCD & SVLHWCD",
+        "count" : "22"
+      }, {
+        "item" : "Upper Arkansas Water Conservancy District",
+        "count" : "20"
+      }, {
+        "item" : "City of Colorado Springs  (Station cooperator)",
+        "count" : "19"
+      }, {
+        "item" : "NCWCD/Bureau of Reclamation (Station Cooperators)",
+        "count" : "19"
+      }, {
+        "item" : "Denver Water Board (Station cooperator)",
+        "count" : "4"
+      }, {
+        "item" : "Corps of Engineers  (Station cooperator)",
+        "count" : "3"
+      }, {
+        "item" : "National Weather Service (Station cooperator)",
+        "count" : "2"
+      }, {
+        "item" : "National Park Service (Station cooperator)",
+        "count" : "2"
+      }, {
+        "item" : "U.S. Forest Service (Station cooperator)",
+        "count" : "1"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "Bureau of Reclamation  (Station cooperator)",
+      "count" : "1680",
+      "cardinality" : "16"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061064,
+    "name" : "DWR Abbrev",
+    "dataTypeName" : "text",
+    "description" : "DWR Station identifier.",
+    "fieldName" : "dwr_abbrev",
+    "position" : 6,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779911,
+    "width" : 81,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "ZWETURCO",
+      "null" : "0",
+      "top" : [ {
+        "item" : "HSPCOMCO",
+        "count" : "4"
+      }, {
+        "item" : "TAYRESCO",
+        "count" : "2"
+      }, {
+        "item" : "HOMOUTCO",
+        "count" : "2"
+      }, {
+        "item" : "OHIBALCO",
+        "count" : "2"
+      }, {
+        "item" : "CHERESCO",
+        "count" : "2"
+      }, {
+        "item" : "ANITIMCO",
+        "count" : "2"
+      }, {
+        "item" : "LEMRESCO",
+        "count" : "2"
+      }, {
+        "item" : "EAGAVOCO",
+        "count" : "2"
+      }, {
+        "item" : "COSRESNM",
+        "count" : "2"
+      }, {
+        "item" : "RIOTAONM",
+        "count" : "2"
+      }, {
+        "item" : "WILFORCO",
+        "count" : "2"
+      }, {
+        "item" : "COLRULCO",
+        "count" : "2"
+      }, {
+        "item" : "ARKHOLCO",
+        "count" : "2"
+      }, {
+        "item" : "HOMSPICO",
+        "count" : "2"
+      }, {
+        "item" : "HENSLCCO",
+        "count" : "2"
+      }, {
+        "item" : "6704822E",
+        "count" : "1"
+      }, {
+        "item" : "YAMRESCO",
+        "count" : "1"
+      }, {
+        "item" : "DORYINCO",
+        "count" : "1"
+      }, {
+        "item" : "ARTCANCO",
+        "count" : "1"
+      }, {
+        "item" : "BEARCOCO",
+        "count" : "1"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "0100569A",
+      "count" : "1680",
+      "cardinality" : "1663"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061065,
+    "name" : "USGS Station ID",
+    "dataTypeName" : "text",
+    "description" : "USGS Station identifier",
+    "fieldName" : "usgs_station_id",
+    "position" : 7,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779948,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : "561",
+      "largest" : "WS1931",
+      "null" : "1119",
+      "top" : [ {
+        "item" : "09362800",
+        "count" : "2"
+      }, {
+        "item" : "09067020",
+        "count" : "2"
+      }, {
+        "item" : "09092570",
+        "count" : "2"
+      }, {
+        "item" : "09108500",
+        "count" : "2"
+      }, {
+        "item" : "08253900",
+        "count" : "2"
+      }, {
+        "item" : "08276500",
+        "count" : "2"
+      }, {
+        "item" : "NEVDITCO&NEVSPRCO",
+        "count" : "2"
+      }, {
+        "item" : "09113500",
+        "count" : "2"
+      }, {
+        "item" : "09124010",
+        "count" : "2"
+      }, {
+        "item" : "09359500",
+        "count" : "2"
+      }, {
+        "item" : "09038500",
+        "count" : "2"
+      }, {
+        "item" : "07135500",
+        "count" : "2"
+      }, {
+        "item" : "06714360",
+        "count" : "1"
+      }, {
+        "item" : "06696980",
+        "count" : "1"
+      }, {
+        "item" : "07099215",
+        "count" : "1"
+      }, {
+        "item" : "09363200",
+        "count" : "1"
+      }, {
+        "item" : "09132095",
+        "count" : "1"
+      }, {
+        "item" : "09304115",
+        "count" : "1"
+      }, {
+        "item" : "09149500",
+        "count" : "1"
+      }, {
+        "item" : "09063400",
+        "count" : "1"
+      } ],
+      "not_null" : "543",
+      "smallest" : "06614800",
+      "count" : "1680",
+      "cardinality" : "549"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061066,
+    "name" : "Station Status",
+    "dataTypeName" : "text",
+    "description" : "Transmission status of station.",
+    "fieldName" : "station_status",
+    "position" : 8,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779949,
+    "width" : 364,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "Site discontinued",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Active",
+        "count" : "1611"
+      }, {
+        "item" : "No gage height recorded, gage is closed for winter, seasonal site",
+        "count" : "32"
+      }, {
+        "item" : "Equipment problems at gage",
+        "count" : "30"
+      }, {
+        "item" : "Gage height and discharge are affected by backwater caused by something other than ice (i.e. trash, beaver dams, etc.)",
+        "count" : "5"
+      }, {
+        "item" : "Site discontinued",
+        "count" : "1"
+      }, {
+        "item" : "Rating being developed or revised",
+        "count" : "1"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "Active",
+      "count" : "1680",
+      "cardinality" : "6"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061067,
+    "name" : "Station Type",
+    "dataTypeName" : "text",
+    "description" : "Type of data being transmitted by the station: Stream Flow, Diversion, Release, or\nStorage.",
+    "fieldName" : "station_type",
+    "position" : 9,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779950,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "Stream",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Stream",
+        "count" : "884"
+      }, {
+        "item" : "Diversion",
+        "count" : "642"
+      }, {
+        "item" : "Reservoir",
+        "count" : "154"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "Diversion",
+      "count" : "1680",
+      "cardinality" : "3"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061068,
+    "name" : "Date Time",
+    "dataTypeName" : "calendar_date",
+    "description" : "Date and time of the last measurement.",
+    "fieldName" : "date_time",
+    "position" : 10,
+    "renderTypeName" : "calendar_date",
+    "tableColumnId" : 15779951,
+    "width" : 140,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "2025-08-27T08:15:00.000",
+      "null" : "0",
+      "top" : [ {
+        "item" : "2025-08-27T07:15:00.000",
+        "count" : "343"
+      }, {
+        "item" : "2025-08-27T07:30:00.000",
+        "count" : "287"
+      }, {
+        "item" : "2025-08-27T07:45:00.000",
+        "count" : "284"
+      }, {
+        "item" : "2025-08-27T08:00:00.000",
+        "count" : "253"
+      }, {
+        "item" : "2025-08-27T07:00:00.000",
+        "count" : "220"
+      }, {
+        "item" : "1999-09-30T00:00:00.000",
+        "count" : "68"
+      }, {
+        "item" : "2025-08-27T06:45:00.000",
+        "count" : "34"
+      }, {
+        "item" : "2025-08-27T08:15:00.000",
+        "count" : "22"
+      }, {
+        "item" : "2025-08-27T06:00:00.000",
+        "count" : "22"
+      }, {
+        "item" : "2025-08-27T06:15:00.000",
+        "count" : "12"
+      }, {
+        "item" : "2025-08-27T05:15:00.000",
+        "count" : "11"
+      }, {
+        "item" : "2025-08-27T06:30:00.000",
+        "count" : "10"
+      }, {
+        "item" : "2025-08-27T07:50:00.000",
+        "count" : "6"
+      }, {
+        "item" : "2025-08-27T05:45:00.000",
+        "count" : "5"
+      }, {
+        "item" : "2025-08-27T03:45:00.000",
+        "count" : "3"
+      }, {
+        "item" : "2025-08-27T07:55:00.000",
+        "count" : "3"
+      }, {
+        "item" : "2025-08-26T17:00:00.000",
+        "count" : "3"
+      }, {
+        "item" : "2025-08-27T07:20:00.000",
+        "count" : "3"
+      }, {
+        "item" : "2025-08-27T07:40:00.000",
+        "count" : "3"
+      }, {
+        "item" : "2025-08-27T08:05:00.000",
+        "count" : "2"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "1999-09-30T00:00:00.000",
+      "count" : "1680",
+      "cardinality" : "98"
+    },
+    "format" : {
+      "view" : "date_time",
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061069,
+    "name" : "Variable",
+    "dataTypeName" : "text",
+    "description" : "Physical parameter that is being measured by the station (i.e. Discharge, Storage)",
+    "fieldName" : "variable",
+    "position" : 11,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779965,
+    "width" : 73,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "STORAGE ",
+      "null" : "0",
+      "top" : [ {
+        "item" : "DISCHRG",
+        "count" : "1465"
+      }, {
+        "item" : "STORAGE",
+        "count" : "164"
+      }, {
+        "item" : "DISCHRG2",
+        "count" : "21"
+      }, {
+        "item" : "DISCHRG1",
+        "count" : "12"
+      }, {
+        "item" : "GAGE HT",
+        "count" : "7"
+      }, {
+        "item" : "ELEV",
+        "count" : "3"
+      }, {
+        "item" : "DISCHRG3",
+        "count" : "3"
+      }, {
+        "item" : "PRECIP",
+        "count" : "1"
+      }, {
+        "item" : "DISCHRG4",
+        "count" : "1"
+      }, {
+        "item" : "STORAGE ",
+        "count" : "1"
+      }, {
+        "item" : "STORAG",
+        "count" : "1"
+      }, {
+        "item" : "DISCHG",
+        "count" : "1"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "DISCHG",
+      "count" : "1680",
+      "cardinality" : "12"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061070,
+    "name" : "Stage",
+    "dataTypeName" : "number",
+    "description" : "The Stage, either the Gage Height or Reservoir Elevation of the last measurement.",
+    "fieldName" : "stage",
+    "position" : 12,
+    "renderTypeName" : "number",
+    "tableColumnId" : 15779980,
+    "width" : 58,
+    "cachedContents" : {
+      "non_null" : "929",
+      "average" : "445.1349713467049",
+      "largest" : "10936.69",
+      "null" : "751",
+      "top" : [ {
+        "item" : "0.00",
+        "count" : "29"
+      }, {
+        "item" : "-0.03",
+        "count" : "16"
+      }, {
+        "item" : "0.03",
+        "count" : "11"
+      }, {
+        "item" : "-0.02",
+        "count" : "11"
+      }, {
+        "item" : "0.74",
+        "count" : "9"
+      }, {
+        "item" : "0.01",
+        "count" : "9"
+      }, {
+        "item" : "0.38",
+        "count" : "8"
+      }, {
+        "item" : "0.07",
+        "count" : "8"
+      }, {
+        "item" : "-0.04",
+        "count" : "7"
+      }, {
+        "item" : "0.48",
+        "count" : "7"
+      }, {
+        "item" : "0.93",
+        "count" : "7"
+      }, {
+        "item" : "0.63",
+        "count" : "7"
+      }, {
+        "item" : "0.33",
+        "count" : "7"
+      }, {
+        "item" : "1.12",
+        "count" : "7"
+      }, {
+        "item" : "0.26",
+        "count" : "7"
+      }, {
+        "item" : "-0.01",
+        "count" : "7"
+      }, {
+        "item" : "0.56",
+        "count" : "7"
+      }, {
+        "item" : "0.89",
+        "count" : "7"
+      }, {
+        "item" : "0.94",
+        "count" : "7"
+      }, {
+        "item" : "0.02",
+        "count" : "7"
+      } ],
+      "not_null" : "676",
+      "smallest" : "-999.00",
+      "count" : "1680",
+      "sum" : "310704.21",
+      "cardinality" : "436"
+    },
+    "format" : {
+      "precisionStyle" : "standard",
+      "noCommas" : "true",
+      "align" : "right"
+    }
+  }, {
+    "id" : 339061071,
+    "name" : "Amount",
+    "dataTypeName" : "number",
+    "description" : "The flow or storage value of the last measurement.",
+    "fieldName" : "amount",
+    "position" : 13,
+    "renderTypeName" : "number",
+    "tableColumnId" : 15779989,
+    "width" : 82,
+    "cachedContents" : {
+      "non_null" : "1612",
+      "average" : "2148.000741666667",
+      "largest" : "482369.00",
+      "null" : "68",
+      "top" : [ {
+        "item" : "0.00",
+        "count" : "273"
+      }, {
+        "item" : "-999.00",
+        "count" : "34"
+      }, {
+        "item" : "-888.00",
+        "count" : "22"
+      }, {
+        "item" : "0.01",
+        "count" : "11"
+      }, {
+        "item" : "0.10",
+        "count" : "8"
+      }, {
+        "item" : "0.04",
+        "count" : "8"
+      }, {
+        "item" : "0.16",
+        "count" : "7"
+      }, {
+        "item" : "10.60",
+        "count" : "6"
+      }, {
+        "item" : "0.02",
+        "count" : "6"
+      }, {
+        "item" : "0.23",
+        "count" : "5"
+      }, {
+        "item" : "19.90",
+        "count" : "5"
+      }, {
+        "item" : "3.19",
+        "count" : "5"
+      }, {
+        "item" : "0.06",
+        "count" : "5"
+      }, {
+        "item" : "0.20",
+        "count" : "5"
+      }, {
+        "item" : "19.40",
+        "count" : "4"
+      }, {
+        "item" : "15.40",
+        "count" : "4"
+      }, {
+        "item" : "5.03",
+        "count" : "4"
+      }, {
+        "item" : "17.10",
+        "count" : "4"
+      }, {
+        "item" : "22.80",
+        "count" : "4"
+      }, {
+        "item" : "17.50",
+        "count" : "4"
+      } ],
+      "not_null" : "1236",
+      "smallest" : "-999.00",
+      "count" : "1680",
+      "sum" : "2577600.89",
+      "cardinality" : "950"
+    },
+    "format" : {
+      "precisionStyle" : "standard",
+      "noCommas" : "true",
+      "align" : "right"
+    }
+  }, {
+    "id" : 339061072,
+    "name" : "Units",
+    "dataTypeName" : "text",
+    "description" : "Measurement units of the last measurement.",
+    "fieldName" : "units",
+    "position" : 14,
+    "renderTypeName" : "text",
+    "tableColumnId" : 18427755,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "CFS",
+      "null" : "0",
+      "top" : [ {
+        "item" : "CFS",
+        "count" : "1492"
+      }, {
+        "item" : "AF",
+        "count" : "120"
+      }, {
+        "item" : "",
+        "count" : "68"
+      } ],
+      "not_null" : "1259",
+      "smallest" : "",
+      "count" : "1680",
+      "cardinality" : "3"
+    },
+    "format" : { }
+  }, {
+    "id" : 339061073,
+    "name" : "Flag",
+    "dataTypeName" : "text",
+    "description" : "Data quality flag.",
+    "fieldName" : "flag",
+    "position" : 15,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15779994,
+    "width" : 53,
+    "cachedContents" : {
+      "non_null" : "89",
+      "largest" : "Ssn",
+      "null" : "1591",
+      "top" : [ {
+        "item" : "Ssn",
+        "count" : "31"
+      }, {
+        "item" : "Eqp",
+        "count" : "28"
+      }, {
+        "item" : "M",
+        "count" : "15"
+      }, {
+        "item" : "B",
+        "count" : "5"
+      }, {
+        "item" : "Bkw",
+        "count" : "5"
+      }, {
+        "item" : "E",
+        "count" : "3"
+      }, {
+        "item" : "Dis",
+        "count" : "1"
+      }, {
+        "item" : "Rat",
+        "count" : "1"
+      } ],
+      "not_null" : "146",
+      "smallest" : "B",
+      "count" : "1680",
+      "cardinality" : "8"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061074,
+    "name" : "More Information",
+    "dataTypeName" : "url",
+    "description" : "Link to the DWR Current Conditions website.",
+    "fieldName" : "http_linkage",
+    "position" : 16,
+    "renderTypeName" : "url",
+    "tableColumnId" : 15780005,
+    "width" : 564,
+    "cachedContents" : {
+      "largest" : {
+        "url" : "http://www.roaringfork.org/"
+      },
+      "non_null" : 1235,
+      "null" : 0,
+      "top" : [ {
+        "item" : {
+          "url" : "http://www.northernwater.org/WaterProjects/WaterData.aspxWestSlopeWaterData.aspx"
+        },
+        "count" : 20
+      } ],
+      "smallest" : {
+        "url" : "http://resources.uawcd.com/dcs_siteinfo.php#10C"
+      }
+    },
+    "format" : {
+      "align" : "left"
+    },
+    "subColumnTypes" : [ "url", "description" ]
+  }, {
+    "id" : 339061075,
+    "name" : "Location",
+    "dataTypeName" : "location",
+    "description" : "Latitude/Longitude where the Station is located.",
+    "fieldName" : "location",
+    "position" : 17,
+    "renderTypeName" : "location",
+    "tableColumnId" : 15780050,
+    "width" : 152,
+    "format" : {
+      "view" : "address_coords",
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061076,
+    "name" : "IDKey",
+    "dataTypeName" : "text",
+    "description" : "",
+    "fieldName" : "dbkey",
+    "position" : 22,
+    "renderTypeName" : "text",
+    "tableColumnId" : 15780055,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : "1680",
+      "largest" : "ZWETURCODISCHRG",
+      "null" : "0",
+      "top" : [ {
+        "item" : "PLACHACODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "NORMUTCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "ARVINLCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "FHLARVCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "4000632BDISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "FUL3RTCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "ARKEFOCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "CCAGLECODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "TURWESCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "LOSODVCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "SPLDITCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "PREOUTCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "LOSORTCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "FLYCANCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "SPACRECODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "SWEDITCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "COSRESNMSTORAGE",
+        "count" : "1"
+      }, {
+        "item" : "WHIMEECODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "DRGDITCODISCHRG",
+        "count" : "1"
+      }, {
+        "item" : "5800539ADISCHRG",
+        "count" : "1"
+      } ],
+      "smallest" : "0100569ADISCHRG",
+      "count" : "1680",
+      "cardinality" : "1680"
+    },
+    "format" : {
+      "align" : "left"
+    }
+  }, {
+    "id" : 339061077,
+    "name" : "UTM x",
+    "dataTypeName" : "number",
+    "description" : "The x (Easting) component of the Universal Transverse Mercator system. (NAD83 datum)",
+    "fieldName" : "utm_x",
+    "position" : 23,
+    "renderTypeName" : "number",
+    "tableColumnId" : 18427905,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : "1678",
+      "average" : "439372.7148298217",
+      "largest" : "862248.2",
+      "null" : "2",
+      "top" : [ {
+        "item" : "637631.0",
+        "count" : "4"
+      }, {
+        "item" : "407780.7",
+        "count" : "4"
+      }, {
+        "item" : "687671.0",
+        "count" : "3"
+      }, {
+        "item" : "512261.1",
+        "count" : "3"
+      }, {
+        "item" : "479006.0",
+        "count" : "3"
+      }, {
+        "item" : "368489.3",
+        "count" : "2"
+      }, {
+        "item" : "219323.0",
+        "count" : "2"
+      }, {
+        "item" : "548980.0",
+        "count" : "2"
+      }, {
+        "item" : "509245.0",
+        "count" : "2"
+      }, {
+        "item" : "482092.0",
+        "count" : "2"
+      }, {
+        "item" : "551523.0",
+        "count" : "2"
+      }, {
+        "item" : "433307.0",
+        "count" : "2"
+      }, {
+        "item" : "385016.0",
+        "count" : "2"
+      }, {
+        "item" : "383462.0",
+        "count" : "2"
+      }, {
+        "item" : "482807.0",
+        "count" : "2"
+      }, {
+        "item" : "432279.0",
+        "count" : "2"
+      }, {
+        "item" : "360469.0",
+        "count" : "2"
+      }, {
+        "item" : "374320.9",
+        "count" : "2"
+      }, {
+        "item" : "519806.0",
+        "count" : "2"
+      }, {
+        "item" : "596699.4",
+        "count" : "2"
+      } ],
+      "not_null" : "1258",
+      "smallest" : "140582.8",
+      "count" : "1680",
+      "sum" : "542185930.1",
+      "cardinality" : "1633"
+    },
+    "format" : {
+      "precisionStyle" : "standard",
+      "noCommas" : "true",
+      "align" : "right"
+    }
+  }, {
+    "id" : 339061078,
+    "name" : "UTM y",
+    "dataTypeName" : "number",
+    "description" : "The y (Northing) component of the Universal Transverse Mercator system. (NAD83 datum)",
+    "fieldName" : "utm_y",
+    "position" : 24,
+    "renderTypeName" : "number",
+    "tableColumnId" : 18427908,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : "1678",
+      "average" : "4317231.002188006",
+      "largest" : "4558407.0",
+      "null" : "2",
+      "top" : [ {
+        "item" : "4359589.5",
+        "count" : "4"
+      }, {
+        "item" : "4213023.0",
+        "count" : "4"
+      }, {
+        "item" : "4420244.1",
+        "count" : "3"
+      }, {
+        "item" : "4400295.0",
+        "count" : "3"
+      }, {
+        "item" : "4219166.0",
+        "count" : "3"
+      }, {
+        "item" : "4140633.4",
+        "count" : "2"
+      }, {
+        "item" : "4274386.0",
+        "count" : "2"
+      }, {
+        "item" : "4288204.0",
+        "count" : "2"
+      }, {
+        "item" : "4297894.0",
+        "count" : "2"
+      }, {
+        "item" : "4358480.1",
+        "count" : "2"
+      }, {
+        "item" : "4081073.1",
+        "count" : "2"
+      }, {
+        "item" : "4406894.5",
+        "count" : "2"
+      }, {
+        "item" : "4180847.5",
+        "count" : "2"
+      }, {
+        "item" : "4369237.0",
+        "count" : "2"
+      }, {
+        "item" : "4339956.5",
+        "count" : "2"
+      }, {
+        "item" : "4361453.0",
+        "count" : "2"
+      }, {
+        "item" : "4211198.8",
+        "count" : "2"
+      }, {
+        "item" : "4388368.9",
+        "count" : "2"
+      }, {
+        "item" : "4164775.0",
+        "count" : "2"
+      }, {
+        "item" : "4432440.3",
+        "count" : "2"
+      } ],
+      "not_null" : "1258",
+      "smallest" : "3669919.1",
+      "count" : "1680",
+      "sum" : "5327463056.7",
+      "cardinality" : "1635"
+    },
+    "format" : {
+      "precisionStyle" : "standard",
+      "noCommas" : "true",
+      "align" : "right"
+    }
+  }, {
+    "id" : 339061079,
+    "name" : "Location Accuracy",
+    "dataTypeName" : "text",
+    "description" : "Accuracy of UTM coordinates.",
+    "fieldName" : "location_accuracy",
+    "position" : 25,
+    "renderTypeName" : "text",
+    "tableColumnId" : 18427917,
+    "width" : 100,
+    "cachedContents" : {
+      "non_null" : "1647",
+      "largest" : "User supplied",
+      "null" : "33",
+      "top" : [ {
+        "item" : "User supplied",
+        "count" : "862"
+      }, {
+        "item" : "GPS",
+        "count" : "498"
+      }, {
+        "item" : "Digitized",
+        "count" : "284"
+      }, {
+        "item" : "Per Decree",
+        "count" : "1"
+      }, {
+        "item" : "Spotted from section lines",
+        "count" : "1"
+      }, {
+        "item" : "Spotted from quarters",
+        "count" : "1"
+      } ],
+      "not_null" : "640",
+      "smallest" : "Digitized",
+      "count" : "1680",
+      "cardinality" : "6"
+    },
+    "format" : { }
+  }, {
+    "id" : 406501240,
+    "name" : "Counties",
+    "dataTypeName" : "number",
+    "fieldName" : ":@computed_region_nku6_53ud",
+    "position" : 26,
+    "renderTypeName" : "number",
+    "tableColumnId" : 80233455,
+    "computationStrategy" : {
+      "source_columns" : [ "location" ],
+      "type" : "georegion_match_on_point",
+      "parameters" : {
+        "region" : "_nku6-53ud",
+        "primary_key" : "_feature_id"
+      }
+    },
+    "format" : { }
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "license" : {
+    "name" : "Public Domain"
+  },
+  "metadata" : {
+    "rdfSubject" : "0",
+    "attachments" : [ {
+      "filename" : "CIM_Dataset_SurfaceWaterCurrentConditions.pdf",
+      "assetId" : "6pVpXObp-X6Ja-pBd863KTl8U42WC9fC347k7VEpRJc",
+      "name" : "CIM_Dataset_SurfaceWaterCurrentConditions.pdf"
+    } ],
+    "sidebar" : {
+      "width" : 453
+    },
+    "custom_fields" : {
+      "Data Quality" : {
+        "Expected Update Frequency" : "Daily"
+      },
+      "Data Updates" : {
+        "Source Update Schedule" : "",
+        "Update Type" : "Automated",
+        "Update Schedule" : "daily, after midnight",
+        "Update Method" : "Staging Server",
+        "Total Records At Initial Publish" : ""
+      },
+      "Dataset Coverage" : {
+        "Geographic Coverage" : "State of Colorado",
+        "Unit of Analysis" : "Tabular"
+      },
+      "Additional Dataset Documentation" : {
+        "Technical Documentation" : "",
+        "Data Dictionary" : "https://data.colorado.gov/api/views/4yw9-a5y6.json",
+        "Additional Metadata" : ""
+      },
+      "Geospatial" : {
+        "Horizontal Coordinate System" : "",
+        "Collection Method" : "",
+        "Coordinate System Disclaimer" : "",
+        "Horizontal Accuracy" : "",
+        "Web Display Coordinate System" : ""
+      },
+      "Data Description" : {
+        "Long Description" : "Division of Water Resources (DWR) Current Surface Water Conditions.  This is a list of all remote monitored stream, diversion, and reservoir gages within the state of Colorado.",
+        "Oldest Record in Dataset" : "09/30/1999",
+        "Row Label" : "",
+        "Newest Record in Dataset" : "07/18/2019",
+        "Collection Method" : "",
+        "Data Collection Instrument" : "",
+        "Collection Mode" : "",
+        "Date of Initial Dataset Creation" : ""
+      },
+      "Contributing Agency Information" : {
+        "Data Source" : "",
+        "Agency Data Series Page" : "",
+        "Citation" : "DNR - Division of Water Resources",
+        "Agency Program Page" : "https://water.state.co.us/Home/Pages/default.aspx"
+      }
+    },
+    "filterCondition" : {
+      "metadata" : {
+        "advanced" : true,
+        "unifiedVersion" : 2
+      },
+      "children" : [ {
+        "metadata" : {
+          "tableColumnId" : {
+            "1304945" : 15780055
+          },
+          "operator" : "EQUALS",
+          "customValues" : [ [ "PLAKERCODISCHRG" ] ]
+        },
+        "type" : "operator",
+        "value" : "OR"
+      } ],
+      "type" : "operator",
+      "value" : "AND"
+    },
+    "rowIdentifier" : 339061076,
+    "availableDisplayTypes" : [ "table", "fatrow", "page" ],
+    "renderTypeConfig" : {
+      "visible" : {
+        "table" : true
+      }
+    }
+  },
+  "owner" : {
+    "id" : "g32q-fx7y",
+    "displayName" : "Division of Water Resources",
+    "profileImageUrlLarge" : "/api/users/g32q-fx7y/profile_images/LARGE",
+    "profileImageUrlMedium" : "/api/users/g32q-fx7y/profile_images/THUMB",
+    "profileImageUrlSmall" : "/api/users/g32q-fx7y/profile_images/TINY",
+    "screenName" : "Division of Water Resources",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+  },
+  "query" : { },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "g32q-fx7y",
+    "displayName" : "Division of Water Resources",
+    "profileImageUrlLarge" : "/api/users/g32q-fx7y/profile_images/LARGE",
+    "profileImageUrlMedium" : "/api/users/g32q-fx7y/profile_images/THUMB",
+    "profileImageUrlSmall" : "/api/users/g32q-fx7y/profile_images/TINY",
+    "screenName" : "Division of Water Resources",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula", "mayBeStoriesCoOwner" ]
+  },
+  "tags" : [ "bic", "streamflows", "current conditions", "gocode" ],
+  "flags" : [ "default", "ownerMayBeContacted", "restorable", "restorePossibleForType" ]
+}
