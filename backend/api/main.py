@@ -1,69 +1,121 @@
-from fastapi import FastAPI, Depends
-from typing import List
-from pydantic import BaseModel
-from datetime import date
-from sqlalchemy.orm import Session
+from fastapi import FastAPI, Query, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse, JSONResponse
+from pymongo import MongoClient, ASCENDING, DESCENDING
+from pydantic import BaseModel, Field
+from datetime import datetime
+import os, asyncio, json
 
-from backend.db.models import SessionLocal, Auction, BoxedBeef, Signal
-from backend.db.init_db import init_db
+# -------------------------
+# Setup
+# -------------------------
 
-app = FastAPI(title="AgriSignals API", version="0.1.0")
+MONGO_URI = os.getenv("MONGO_URI")
+MONGO_DB = os.getenv("MONGO_DB", "agrisignals_db")
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",")
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+client = MongoClient(MONGO_URI)
+db = client[MONGO_DB]
 
-class AuctionOut(BaseModel):
-    id: int
-    market: str
-    location: str
-    sale_date: date
-    head_count: int
-    weight_band: str
-    price_cwt: float
-    keywords: str
-    source_url: str
-    class Config:
-        from_attributes = True
+# Ensure indexes (run once on startup)
+db["signals"].create_index([("ingestion_date", DESCENDING)])
+db["signals"].create_index("state")
+db["aggregates"].create_index("key")
+db["alerts"].create_index([("timestamp", DESCENDING)])
 
-class BoxedBeefOut(BaseModel):
-    id: int
-    date: date
-    choice: float
-    select: float
-    loads: int
-    class Config:
-        from_attributes = True
+app = FastAPI(title="Agrisignals API")
 
-class SignalOut(BaseModel):
-    id: int
-    date: date
-    name: str
-    value: float
-    triggered: bool
-    notes: str | None = None
-    class Config:
-        from_attributes = True
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[o.strip() for o in ALLOWED_ORIGINS if o.strip()],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@app.on_event("startup")
-def startup_event():
-    init_db()
+# -------------------------
+# Models
+# -------------------------
 
-@app.get("/health")
+class SignalQuery(BaseModel):
+    limit: int = Field(default=100, ge=1, le=500)
+    skip: int = Field(default=0, ge=0)
+
+# -------------------------
+# Endpoints
+# -------------------------
+
+@app.get("/healthz")
 def health():
-    return {"ok": True}
+    """Healthcheck endpoint for Railway/Render"""
+    try:
+        db.command("ping")
+        return {"status": "ok", "db": "connected"}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"status": "error", "detail": str(e)})
 
-@app.get("/auctions", response_model=List[AuctionOut])
-def list_auctions(limit: int = 100, db: Session = Depends(get_db)):
-    return db.query(Auction).order_by(Auction.sale_date.desc()).limit(limit).all()
 
-@app.get("/boxed_beef", response_model=List[BoxedBeefOut])
-def list_boxed_beef(limit: int = 100, db: Session = Depends(get_db)):
-    return db.query(BoxedBeef).order_by(BoxedBeef.date.desc()).limit(limit).all()
+@app.get("/signals")
+def get_signals(q: SignalQuery = Depends()):
+    """Paginated list of signals"""
+    try:
+        docs = list(
+            db["signals"]
+            .find({}, {"_id": 0})
+            .sort("ingestion_date", -1)
+            .skip(q.skip)
+            .limit(q.limit)
+        )
+        return {"count": len(docs), "results": docs}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
 
-@app.get("/signals", response_model=List[SignalOut])
-def list_signals(limit: int = 100, db: Session = Depends(get_db)):
-    return db.query(Signal).order_by(Signal.date.desc()).limit(limit).all()
+
+@app.get("/signals/latest")
+def get_latest_signal():
+    """Get most recent single signal"""
+    try:
+        doc = db["signals"].find_one({}, {"_id": 0}, sort=[("ingestion_date", -1)])
+        return {"latest": doc}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+@app.get("/stats/summary")
+def stats_summary():
+    """Signals count per state"""
+    try:
+        pipeline = [
+            {"$group": {"_id": "$state", "signals": {"$sum": 1}}},
+            {"$project": {"state": "$_id", "signals": 1, "_id": 0}},
+        ]
+        docs = list(db["signals"].aggregate(pipeline))
+        return {"states": docs, "total_signals": sum(d["signals"] for d in docs)}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+@app.get("/stats/composite")
+def composite_stats():
+    """Composite labor+water risk per state from aggregates collection"""
+    try:
+        docs = list(db["aggregates"].find({}, {"_id": 0}))
+        return {"count": len(docs), "results": docs}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+@app.get("/sse/alerts")
+async def alerts_sse():
+    """Server-Sent Events stream of new alerts"""
+    async def event_generator():
+        last_ts = None
+        while True:
+            query = {"timestamp": {"$gt": last_ts}} if last_ts else {}
+            alert = db["alerts"].find_one(query, {"_id": 0}, sort=[("timestamp", -1)])
+            if alert:
+                last_ts = alert["timestamp"]
+                yield f"data: {json.dumps(alert)}\n\n"
+            await asyncio.sleep(3)  # adjust polling cadence
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")

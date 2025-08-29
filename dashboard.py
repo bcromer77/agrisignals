@@ -1,4 +1,4 @@
-'''import os
+import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -6,6 +6,9 @@ import plotly.graph_objects as go
 from pymongo import MongoClient
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+
+# MUST BE FIRST - Streamlit page config
+st.set_page_config(page_title="AgriSignals Dashboard", layout="wide")
 
 # --- Load env vars ---
 load_dotenv()
@@ -23,7 +26,6 @@ db = client[MONGO_DB]
 collection = db[COLLECTION]
 
 # --- Streamlit App ---
-st.set_page_config(page_title="AgriSignals Dashboard", layout="wide")
 st.title("🌾 AgriSignals – Labor, Water & Commodity Risk Dashboard")
 
 # --- Load Data ---
@@ -41,7 +43,7 @@ df = load_data()
 
 if df.empty:
     st.warning("⚠️ No data found in MongoDB. Run ingestion pipeline first:")
-    st.code("python scripts/agrisignals_ingestion.py")
+    st.code("python agrisignals_ingestion.py")
     st.stop()
 
 # --- Sidebar Filters ---
@@ -248,10 +250,10 @@ if "priority_score" in df.columns:
         for _, row in high_priority.iterrows():
             st.error(
                 f"**{row.get('source_id', 'Alert')}** ({row.get('state', 'Unknown')}) - "
-                f"{row.get('commodity', 'Unknown')} | Priority: {row.get('priority_score', 'N/A')}\\n\\n"
-                f"{row.get('scraped_content', 'No content')[:200]}...\\n\\n"
-                f"🔗 {row.get('url', 'No URL')}"
+                f"{row.get('commodity', 'Unknown')} | Priority: {row.get('priority_score', 'N/A')}"
             )
+            st.write(f"{row.get('scraped_content', 'No content')[:200]}...")
+            st.write(f"🔗 {row.get('url', 'No URL')}")
     else:
         st.success("✅ No high-priority alerts currently triggered.")
 
@@ -259,11 +261,3 @@ if "priority_score" in df.columns:
 st.markdown("---")
 st.markdown("🌾 **AgriSignals** - Early warning system for agricultural commodity risks")
 st.markdown(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-'''
-
-# Save the file
-with open('dashboard.py', 'w') as f:
-    f.write(dashboard_code)
-
-print("✅ Created complete dashboard.py")
-print("File size:", len(dashboard_code), "characters")

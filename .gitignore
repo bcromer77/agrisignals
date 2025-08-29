@@ -99,3 +99,10 @@ with open('.gitignore', 'w') as f:
 
 print("✅ Created comprehensive .gitignore")
 print("File size:", len(gitignore_content), "characters")
+
+# Data snapshots
+/data/
+
+# Local env
+.env
+.env.*

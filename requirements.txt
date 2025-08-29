@@ -34,3 +34,4 @@ python-dotenv==1.0.1
 # ----------------
 # Optional: hot reload (local dev only)
 watchdog==4.0.1
+schedule

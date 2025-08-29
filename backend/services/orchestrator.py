@@ -1,3 +1,5 @@
+# backend/services/orchestrator.py
+
 """
 Orchestrator for Agrisignals
 Runs all GPT-style agents (council, auction, infra, retail, litigation, etc.)
@@ -42,42 +44,53 @@ def run_agent(agent):
         logging.info(f"{agent.name} collected {len(docs)} docs")
         return docs
     except Exception as e:
-        logging.error(f"{agent.name} failed: {e}")
-        traceback.print_exc()
+        logging.error(f"Agent {agent} failed: {e}\n{traceback.format_exc()}")
         return []
 
-def ingest_docs(agent_name, docs):
-    """Save docs to storage + check for alerts"""
-    if not docs: return
 
-    # Save raw data
-    save_to_mongo(docs)
-    save_to_pinecone(docs)
+def ingest_docs(agent_name: str, docs: list[dict]):
+    """Save docs into MongoDB + Pinecone, notify if priority high."""
+    try:
+        for doc in docs:
+            save_to_mongo(doc)
+            save_to_pinecone(doc)
 
-    # Simple scoring → trigger alerts if strong signal
-    for d in docs:
-        score = d.get("score", 0.0)
-        if score >= 0.8:  # configurable threshold
-            msg = f"🚨 High-impact signal from {agent_name}\nTitle: {d.get('title')}\nURL: {d.get('url')}\nScore: {score:.2f}"
-            notify_slack(msg)
-            notify_whatsapp(msg)
-            logging.info(f"ALERT sent: {msg}")
+            # Notify if priority > 9.0 (contrarian alpha signal)
+            if hasattr(doc, "priority_score") and doc.priority_score >= 9.0:
+                msg = f"🚨 {agent_name} found HIGH priority signal: {doc.extraction_notes}"
+                notify_slack(msg)
+                notify_whatsapp(msg)
+
+        logging.info(f"Ingested {len(docs)} docs from {agent_name}")
+    except Exception as e:
+        logging.error(f"Ingestion failed for {agent_name}: {e}\n{traceback.format_exc()}")
+
 
 def run_all_agents():
-    """Main orchestrator loop"""
+    """Run all agents and persist results."""
+    results = {}
+
+    # instantiate each agent
     agents = [
-        AuctionAgent(), CouncilAgent(), InfraAgent(),
-        DroughtAgent(), FlightAgent(), HotelAgent(),
-        LitigationAgent(), RetailAgent()
+        AuctionAgent(),
+        CouncilAgent(),
+        InfraAgent(),
+        DroughtAgent(),
+        FlightAgent(),
+        HotelAgent(),
+        LitigationAgent(),
+        RetailAgent(),
     ]
 
     for agent in agents:
-        logging.info(f"▶️ Running {agent.name}")
-        docs = run_agent(agent)
-        ingest_docs(agent.name, docs)
+        try:
+            docs = run_agent(agent)
+            if docs:
+                ingest_docs(agent.name, docs)
+                results[agent.name] = len(docs)
+        except Exception as e:
+            logging.error(f"Agent {agent} crashed: {e}\n{traceback.format_exc()}")
 
-if __name__ == "__main__":
-    print("🚀 Orchestrator starting at", datetime.utcnow())
-    run_all_agents()
-    print("✅ Run complete")
+    logging.info(f"All agents finished. Summary: {results}")
+    return results
 
