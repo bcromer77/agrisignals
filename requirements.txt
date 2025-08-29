@@ -7,6 +7,7 @@ requests==2.32.3
 tenacity>=8.1,<9.0
 twilio==9.2.3
 sqlalchemy==2.0.34
+apscheduler==3.10.4
 
 # ----------------
 # LLM / Scraping
