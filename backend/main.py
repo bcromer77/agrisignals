@@ -9,6 +9,16 @@ app.include_router(scanner.router)
 app.include_router(geo.router)
 app.include_router(signals.router)
 
+# Healthcheck endpoint
+@app.get("/ping", tags=["health"])
+async def ping():
+    try:
+        # Quick DB check
+        db.command("ping")
+        return {"status": "ok", "db": "connected"}
+    except Exception as e:
+        return {"status": "error", "db": str(e)}
+
 # Direct signals endpoint (MongoDB pull)
 @app.get("/signals", tags=["signals"])
 async def get_signals(limit: int = 20):

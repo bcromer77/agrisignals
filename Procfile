@@ -1,2 +1,2 @@
-web: uvicorn backend.api.mapper_api:app --host 0.0.0.0 --port 8000
-worker: python backend/scheduler.py
+web: gunicorn -k uvicorn.workers.UvicornWorker backend.main:app --bind 0.0.0.0:$PORT --workers 4 --timeout 120
+
