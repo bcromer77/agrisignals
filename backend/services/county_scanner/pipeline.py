@@ -16,7 +16,7 @@ import httpx
 # ---------- Optional Firecrawl ----------
 try:
     from firecrawl import Firecrawl
-except Exception:
+except Exception:   
     Firecrawl = None
 # ---------------------------------------
 
@@ -28,8 +28,11 @@ MONGODB_DB = os.getenv("MONGODB_DB", "agrisignals")
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
-OPENAI = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
+# ✅ Lazy init: only create client if key exists
+OPENAI = None
+api_key = os.getenv("OPENAI_API_KEY")
+if api_key:
+    OPENAI = OpenAI(api_key=api_key)
 # Firecrawl client if configured
 FC = None
 if Firecrawl and os.getenv("FIRECRAWL_API_KEY"):
