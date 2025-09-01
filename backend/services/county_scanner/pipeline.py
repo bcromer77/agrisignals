@@ -33,6 +33,7 @@ OPENAI = None
 api_key = os.getenv("OPENAI_API_KEY")
 if api_key:
     OPENAI = OpenAI(api_key=api_key)
+
 # Firecrawl client if configured
 FC = None
 if Firecrawl and os.getenv("FIRECRAWL_API_KEY"):
