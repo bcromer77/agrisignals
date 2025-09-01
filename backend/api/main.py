@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
+from backend.api.triggers_api import router as triggers_router
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from pydantic import BaseModel, Field
 from datetime import datetime
@@ -24,6 +25,7 @@ db["aggregates"].create_index("key")
 db["alerts"].create_index([("timestamp", DESCENDING)])
 
 app = FastAPI(title="Agrisignals API")
+app.include_router(triggers_router)
 
 app.add_middleware(
     CORSMiddleware,
