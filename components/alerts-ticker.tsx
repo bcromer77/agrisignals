@@ -1,41 +1,68 @@
-"use client";
-import { useEffect, useState } from "react";
+"use client"
 
-export default function AlertsTicker() {
-  const [alerts, setAlerts] = useState<string[]>([]);
+import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { TrendingUp, TrendingDown, AlertTriangle } from "lucide-react"
 
-  useEffect(() => {
-    const apiBase = process.env.NEXT_PUBLIC_API_BASE!;
-    const eventSource = new EventSource(`${apiBase}/sse/alerts`);
+interface Signal {
+  id: number
+  headline: string
+  city: string
+  state?: string
+  commodity: string
+  score: number
+  so_what: string
+  who_bleeds: string
+  who_benefits: string
+  signalStrength: string
+}
 
-    eventSource.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        setAlerts((prev) => [data.message, ...prev].slice(0, 5)); // keep last 5
-      } catch {
-        console.error("Invalid SSE message:", event.data);
-      }
-    };
+interface AlertsTickerProps {
+  signals: Signal[]
+}
 
-    eventSource.onerror = () => {
-      console.error("SSE connection error");
-      eventSource.close();
-    };
-
-    return () => {
-      eventSource.close();
-    };
-  }, []);
+export function AlertsTicker({ signals }: AlertsTickerProps) {
+  const topAlerts = signals.filter((s) => s.score > 85).slice(0, 3)
 
   return (
-    <div className="bg-yellow-100 border border-yellow-400 text-yellow-800 p-2 rounded">
-      <h2 className="font-bold text-sm">⚡ Live Alerts</h2>
-      <ul className="text-xs space-y-1 mt-1">
-        {alerts.length === 0 && <li>No alerts yet...</li>}
-        {alerts.map((msg, i) => (
-          <li key={i}>• {msg}</li>
+    <Card className="p-4 bg-card border-border">
+      <div className="flex items-center gap-2 mb-3">
+        <AlertTriangle className="h-5 w-5 text-destructive animate-flash" />
+        <h2 className="text-lg font-bold text-foreground">LIVE ALERTS</h2>
+        <Badge variant="destructive" className="animate-pulse-glow">
+          {topAlerts.length} ACTIVE
+        </Badge>
+      </div>
+
+      <div className="space-y-2">
+        {topAlerts.map((signal) => (
+          <div
+            key={signal.id}
+            className="flex items-center justify-between p-3 bg-muted/20 rounded-lg border border-border/50 hover:bg-muted/30 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              {signal.score > 90 ? (
+                <TrendingUp className="h-4 w-4 text-destructive animate-flash" />
+              ) : (
+                <TrendingDown className="h-4 w-4 text-chart-2" />
+              )}
+              <div>
+                <p className="text-sm font-medium text-foreground">{signal.headline}</p>
+                <p className="text-xs text-muted-foreground">
+                  {signal.city}
+                  {signal.state && `, ${signal.state}`} • {signal.commodity}
+                </p>
+              </div>
+            </div>
+
+            <div className="text-right">
+              <Badge variant={signal.score > 90 ? "destructive" : "secondary"} className="font-mono">
+                {signal.score.toFixed(0)}
+              </Badge>
+            </div>
+          </div>
         ))}
-      </ul>
-    </div>
-  );
+      </div>
+    </Card>
+  )
 }
