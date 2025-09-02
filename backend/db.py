@@ -3,7 +3,7 @@ Database connector for Agrisignals.
 
 - Connects to MongoDB using MONGODB_URI and MONGODB_DB env vars.
 - Exposes `db` (database handle) and `client` (Mongo client).
-- Automatically ensures indexes for performance.
+- Provides `init_db()` to ensure indexes and verify connection.
 """
 
 import os
@@ -17,17 +17,22 @@ MONGODB_DB = os.getenv("MONGODB_DB", "agrisignals")
 client = MongoClient(MONGODB_URI)
 db = client[MONGODB_DB]
 
-# Optional: Ensure indexes exist
-def ensure_indexes():
+def init_db():
+    """
+    Ensure indexes exist and verify Mongo connection.
+    Called once at FastAPI startup.
+    """
     try:
+        # Verify connection
+        client.admin.command("ping")
+
+        # Ensure indexes
         db.signals.create_index([("state", 1), ("topic", 1), ("timestamp", -1)])
         db.sources.create_index([("state", 1), ("topic", 1), ("url", 1)], unique=True)
         db.signals.create_index("embedding")
         db.sources.create_index("embedding")
-        print("✅ MongoDB indexes ensured")
-    except Exception as e:
-        print(f"⚠️ Index creation failed: {e}")
 
-# Run index setup on import
-ensure_indexes()
+        print("✅ MongoDB connected and indexes ensured")
+    except Exception as e:
+        print(f"❌ MongoDB init failed: {e}")
 

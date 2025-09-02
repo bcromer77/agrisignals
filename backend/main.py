@@ -1,32 +1,42 @@
 from fastapi import FastAPI
-from backend.routers import scanner, geo, signals
-from backend.db import db  # 👈 make sure this exists and exposes `db`
+import backend.db as db
 
-app = FastAPI(title="Agrisignals")
+app = FastAPI(title="Agrisignals API (dev)")
 
-# Attach routers
-app.include_router(scanner.router)
-app.include_router(geo.router)
-app.include_router(signals.router)
+# Run DB init at startup
+@app.on_event("startup")
+def startup_event():
+    db.init_db()
 
-# Healthcheck endpoint
-@app.get("/ping", tags=["health"])
-async def ping():
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+@app.get("/dbstatus")
+def db_status():
     try:
-        # Quick DB check
-        db.command("ping")
-        return {"status": "ok", "db": "connected"}
+        stats = db.db.command("dbStats")
+        return {
+            "status": "ok",
+            "db": db.MONGODB_DB,
+            "collections": stats.get("collections"),
+            "objects": stats.get("objects"),
+            "storageSize": stats.get("storageSize"),
+        }
     except Exception as e:
-        return {"status": "error", "db": str(e)}
+        return {"status": "error", "error": str(e)}
 
-# Direct signals endpoint (MongoDB pull)
-@app.get("/signals", tags=["signals"])
-async def get_signals(limit: int = 20):
-    docs = list(
-        db["signals"]
-        .find({}, {"_id": 0})
-        .sort("ingestion_date", -1)
-        .limit(limit)
-    )
-    return {"signals": docs}
+# 🚀 Latest signals for hedge funds
+@app.get("/signals/recent")
+def recent_signals(limit: int = 10):
+    try:
+        docs = list(
+            db.db["signals"]
+            .find({}, {"_id": 0})
+            .sort("timestamp", -1)
+            .limit(limit)
+        )
+        return {"count": len(docs), "signals": docs}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
 
