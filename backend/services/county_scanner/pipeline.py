@@ -28,11 +28,19 @@ MONGODB_DB = os.getenv("MONGODB_DB", "agrisignals")
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 
-# ✅ Lazy init: only create client if key exists
-OPENAI = None
-api_key = os.getenv("OPENAI_API_KEY")
-if api_key:
-    OPENAI = OpenAI(api_key=api_key)
+from functools import lru_cache
+from openai import OpenAI
+
+@lru_cache
+def get_openai():
+    """
+    Lazily initialize and cache an OpenAI client per worker.
+    Ensures we don’t hit 'unexpected keyword argument proxies' issues.
+    """
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError("OPENAI_API_KEY is not set")
+    return OpenAI(api_key=api_key)
 
 # Firecrawl client if configured
 FC = None
